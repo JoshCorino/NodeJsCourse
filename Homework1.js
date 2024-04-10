@@ -170,49 +170,55 @@ String.prototype.multiply = function (other) {
  * @param {string} other - The string to divide the current string by.
  * @returns {string} The quotient of dividing the current string by `other` as a string.
  */
-String.prototype.divide = function (other) {
-    let dividend = `${this}`
-    let divisor = `${other}`
-    let quotient = ''
+String.prototype.divide = function (divisor) {
 
-    if (divisor.onlyZeros()){
-        console.error("Can not divide by zero")
+    if (divisor.onlyZeros()) {
+        console.error("Error: Cannot divide by zero")
         return
     }
+    
+    let dividendDigits = this.split('').map(Number)
+    let quotient = []
+    let currentDividend = 0
 
-    while (dividend !== '0' && dividend.isGreaterOrEqualThan(divisor)) {
-        let count = 0
-        while (dividend.isGreaterOrEqualThan(divisor)) {
-            dividend = dividend.minus(divisor)
-            count++
+    for (let i = 0; i < dividendDigits.length; i++) {
+        currentDividend = currentDividend * 10 + dividendDigits[i]
+
+        if (currentDividend >= parseInt(divisor)) {
+            let digit = Math.floor(currentDividend / parseInt(divisor))
+            quotient.push(digit)
+            currentDividend %= parseInt(divisor)
+        } else {
+            quotient.push(0)
         }
-        quotient += count
     }
 
-    if (quotient == '') {
-        quotient += '0'
+    quotient = quotient.join('').replace(/^0+/, '')
+
+    if (quotient === '') {
+        quotient = '0'
     }
-        
+
     return quotient
 }
 
 //Usages
 console.log("Divide demo usages:");
-console.log("1/10 =","1".divide("10"));
-console.log("129894/13 =","129894".divide("13"));
-console.log("1/0 =","1".divide("0"));
+console.log("129894/13 =", "129894".divide("13"));
+console.log("4444444444444444444444444444444440000000000000000000000000000000/2 =", "4444444444444444444444444444444440000000000000000000000000000000".divide("2"));
+console.log("1/0 =", "1".divide("0"));
 
 console.log("Multiply demo usages:");
-console.log("89555*1000001 =","89555".multiply("1000001"));
-console.log("1*1 =","1".multiply("1"));
-console.log("111111111111111*2222222222222 =","111111111111111".multiply("2222222222222"));
+console.log("89555*1000001 =", "89555".multiply("1000001"));
+console.log("1*1 =", "1".multiply("1"));
+console.log("111111111111111*2222222222222 =", "111111111111111".multiply("2222222222222"));
 
 console.log("Plus demo usages:");
-console.log("895235252355+3252353325 =","895235252355".plus("3252353325"));
-console.log("1+1 =","1".plus("1"));
-console.log("111111111111111+2222222222222 =","111111111111111".plus("2222222222222"));
+console.log("895235252355+3252353325 =", "895235252355".plus("3252353325"));
+console.log("1+1 =", "1".plus("1"));
+console.log("1111111111111112222223333334444444444444+2222222222222 =", "1111111111111112222223333334444444444444".plus("2222222222222"));
 
 console.log("Minus demo usages:");
-console.log("89555-1000001 =","89555".minus("1000001"));
-console.log("1-1 =","1".minus("1"));
-console.log("98989898923-12312412412 =","98989898923".minus("12312412412"));
+console.log("89555-1000001 =", "89555".minus("1000001"));
+console.log("1-1 =", "1".minus("1"));
+console.log("1111111111111112222223333334444444444444-4323532523523532532532432 =", "1111111111111112222223333334444444444444".minus("4323532523523532532532432"));
