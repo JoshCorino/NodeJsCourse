@@ -1,0 +1,11 @@
+{
+  "name": "homework2",
+  "version": "1.0.0",
+  "description": "Solvd Node.js course number 2",
+  "main": "Homework2.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "JoshCorino",
+  "license": "ISC"
+}
