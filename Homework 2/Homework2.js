@@ -11,9 +11,13 @@
     (Optional) Implement additional functions of your choice that demonstrate advanced type conversion scenarios or cater to specific use cases related to primitive types. You are encouraged to explore complex scenarios and push the limits of type conversion.
 */
 function addValues(val1, val2) {
-    if (typeof val1 == typeof val2){
-        return val1 + val2
-    }else{
+    if (typeof val1 == typeof val2) {
+        if (typeof val1 == 'boolean') {
+            return val1 || val2
+        } else {
+            return val1 + val2
+        }
+    } else {
         throw new Error(`Error: Values cannot be added because they are of different types`)
     }
 }
@@ -73,14 +77,14 @@ function coerceToType(value, type) {
 //addValues uses
 console.log("addValues usage:")
 try {
-    console.log("Add a boolean with number values (Error):", addValues("demo",2))
+    console.log("Add a boolean with number values (Error):", addValues("demo", 2))
 } catch (error) {
     console.error(error.message)
 }
-console.log("Add number values:", addValues(1,2))
-console.log("Add boolean values:", addValues(true,false))
-console.log("Add boolean values:", addValues(false,false))
-console.log("Add string values:", addValues("hel","lo"), "\n")
+console.log("Add number values:", addValues(1, 2))
+console.log("Add boolean values:", addValues(true, false))
+console.log("Add boolean values:", addValues(false, false))
+console.log("Add string values:", addValues("hel", "lo"), "\n")
 
 //invertBoolean uses
 console.log("invertBoolean usage:")
