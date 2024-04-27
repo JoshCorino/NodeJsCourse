@@ -102,4 +102,3 @@ function measureArrayPerformance(func, array) {
 }
 const finalArray = [1, 2, 3, 4, 5, 6, 7, 23, 56, 72, 123, 563, 12234, 90, 41241, 12436, 3411, 53, 213, 568, 90098, 43225, 562343]
 console.log("customShuffle time:",measureArrayPerformance(customShuffle,finalArray))
-console.log("Sort with random function time:",measureArrayPerformance(customShuffle,finalArray))
