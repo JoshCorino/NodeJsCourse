@@ -36,6 +36,12 @@ Object.defineProperties(person, {
         configurable: true,
     },
 })
+Object.defineProperty(person, 'address', {
+    value: {},
+    enumerable: false,
+    configurable: false,
+    writable: true
+})
 
 console.log("Person firstName:", person.firstName)
 person.firstName = "New name"
@@ -44,25 +50,20 @@ console.log("Person first name should remain equal after try to change it:", per
 person.updateInfo = function (info) {
     Object.keys(info).forEach(prop => {
         if (this.hasOwnProperty(prop)) {
-            Object.defineProperty(this, prop, {
-                value: info[prop],
-                writable: false,
-                configurable: true
-            });
+            if (Object.getOwnPropertyDescriptor(this, prop).writable) {
+                Object.defineProperty(this, prop, {
+                    value: info[prop],
+                    writable: true,
+                })
+            }
         }
     })
 }
 
 console.log("Change person with updateInfo function:")
-person.updateInfo({ firstName: "Rick", age: 100 })
-console.log("Person first name should be updated:", person.firstName)
-console.log("Person age should be updated:", person.age)
-
-Object.defineProperty(person, 'address', {
-    value: {},
-    enumerable: false,
-    configurable: false
-})
+person.updateInfo({ firstName: "Rick", address: {street: "Avellaneda", number: 1234} })
+console.log("Person first name should not be updated:", person.firstName)
+console.log("Person address should be updated:", person.address)
 
 /*
     Task 2: Object Property Enumeration and Deletion
@@ -133,10 +134,23 @@ let bankAccount = {
     set balance(value) {
         this._balance = value
     },
+    get balance() {
+        return this._balance
+    },
 };
 console.log("Formatted balance:", bankAccount.formattedBalance)
 bankAccount.balance = 4000
+console.log("Balance after set it to 4000:", bankAccount.balance)
 console.log("Formatted balance after set it to 4000:", bankAccount.formattedBalance)
+
+function transfer(origin, destiny, amount){
+    if(origin.balance>=amount){
+        origin.balance = origin.balance-amount
+        destiny.balance = destiny.balance+amount
+    }else{
+        throw Error("Origin account have not enough money")
+    }
+}
 
 /*
     Task 4: Advanced Property Descriptors
