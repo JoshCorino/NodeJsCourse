@@ -6,18 +6,21 @@
     Create a function called customFilterUnique that takes an array and a callback function as arguments. The customFilterUnique function should filter the array using the callback function to determine uniqueness. The resulting array should contain only unique elements based on the callback's logic.
     Use the customFilterUnique function to filter an array of objects based on a specific property and return only unique objects.
 */
-function uniqueName(value, index, array) {
-    if (array.filter((element) => element.name == value.name).length == 1) {
-        return value
-    }
+function getName(obj) {
+    return obj.name
 }
 
 function customFilterUnique(array, callback) {
-    return array.filter(callback)
+    const countMap = new Map()
+    array.forEach(item => {
+        const key = callback(item)
+        countMap.set(key, (countMap.get(key) || 0) + 1)
+    })
+    return array.filter(item => countMap.get(callback(item)) === 1)
 }
 
-const testArray = [{ name: "Mary" }, { name: "Jon" }, { name: "Richard" }, { name: "Richard" }]
-console.log("testArray with unique filter:", customFilterUnique(testArray, uniqueName))
+const testArray = [{ name: "Mary" }, { name: "Jon" }, { name: "Richard" }, { name: "Richard" }, { name: "Jon" }, { name: "Soave" }]
+console.log("testArray with unique filter:", customFilterUnique(testArray, getName))
 /*
     Task 2: Array Chunking
     Create a function called chunkArray that takes an array and a chunk size as arguments. The chunkArray function should divide the array into smaller arrays, each containing elements of the specified chunk size. The function should return an array of arrays.
@@ -84,7 +87,7 @@ const array4 = [2, 3, 3]
 console.log("Intersect array 1 and array 2:", getArrayIntersection(array1, array2))
 
 function getArrayUnion(array1, array2) {
-    let result = new Set([ ...array1, ...array2 ])
+    let result = new Set([...array1, ...array2])
     return Array.from(result)
 }
 
