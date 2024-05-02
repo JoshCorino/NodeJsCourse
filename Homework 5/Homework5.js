@@ -16,8 +16,8 @@ function customFilterUnique(array, callback) {
     return array.filter(callback)
 }
 
-const testArray = [{ name: "Mary" }, { name: "Jon" }, { name: "Richard" }, { name: "Richard" }];
-console.log("testArray with unique filter:", customFilterUnique(testArray, uniqueName));
+const testArray = [{ name: "Mary" }, { name: "Jon" }, { name: "Richard" }, { name: "Richard" }]
+console.log("testArray with unique filter:", customFilterUnique(testArray, uniqueName))
 /*
     Task 2: Array Chunking
     Create a function called chunkArray that takes an array and a chunk size as arguments. The chunkArray function should divide the array into smaller arrays, each containing elements of the specified chunk size. The function should return an array of arrays.
@@ -79,20 +79,18 @@ function getArrayIntersection(array1, array2) {
 }
 const array1 = [1, 2, 3, 4, 9, 17]
 const array2 = [1, 2, 3, 4, 5, 6, 7, 23, 56, 72, 123, 563, 12234, 90]
+const array3 = [1, 2, 2]
+const array4 = [2, 3, 3]
 console.log("Intersect array 1 and array 2:", getArrayIntersection(array1, array2))
 
 function getArrayUnion(array1, array2) {
-    array1.length < array2.length ? [smallest, bigger] = [array1, array2] : [smallest, bigger] = [array2, array1]
-    let result = [...bigger]
-    smallest.forEach(element => {
-        if (!result.includes(element)) {
-            result.push(element)
-        }
-    });
-    return result
+    let result = new Set([ ...array1, ...array2 ])
+    return Array.from(result)
 }
+
 console.log("array 1 union array 2:", getArrayUnion(array1, array2))
 console.log("array 1 union array 1:", getArrayUnion(array1, array1))
+console.log("array 3 union array 4:", getArrayUnion(array3, array4))
 /*
     Task 5: Array Performance Analysis
     Implement a function called measureArrayPerformance that takes a function and an array as arguments. The measureArrayPerformance function should execute the provided function with the given array as input and measure the execution time.
